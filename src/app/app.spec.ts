@@ -6,6 +6,7 @@ import { ScoreTrackerService } from './services/score-tracker.service';
 
 describe('App', () => {
   beforeEach(async () => {
+    localStorage.clear();
     await TestBed.configureTestingModule({
       imports: [App],
     }).compileComponents();
@@ -62,7 +63,7 @@ describe('App', () => {
     fixture.destroy();
   }));
 
-  it('should show only passed rounds in the scoreboard', fakeAsync(() => {
+  it('should show passed rounds and highest score in the scoreboard', fakeAsync(() => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
 
@@ -74,8 +75,8 @@ describe('App', () => {
       (el.textContent ?? '').trim(),
     );
 
-    expect(scoreLabels).toEqual(['Passed Rounds']);
-    expect(scoreValues).toEqual(['0']);
+    expect(scoreLabels).toEqual(['Passed Rounds', 'Highest Score']);
+    expect(scoreValues).toEqual(['0', '0']);
     fixture.destroy();
   }));
 
@@ -133,7 +134,10 @@ describe('App', () => {
     fixture.detectChanges();
 
     expect(compiled.querySelector('[data-testid="game-over-status"]')).not.toBeNull();
-    expect((compiled.querySelector('.score-item .value')?.textContent ?? '').trim()).toBe('0');
+    const scoreValues = Array.from(compiled.querySelectorAll('.score-item .value')).map((el) =>
+      (el.textContent ?? '').trim(),
+    );
+    expect(scoreValues).toEqual(['0', '0']);
     expect(moveButton.disabled).toBeTrue();
     expect(computerService.getComputerMove).toHaveBeenCalledTimes(1);
     fixture.destroy();
@@ -164,7 +168,7 @@ describe('App', () => {
       (el.textContent ?? '').trim(),
     );
 
-    expect(scoreValues).toEqual(['0']);
+    expect(scoreValues).toEqual(['0', '0']);
     expect(compiled.querySelector('[data-testid="game-over-status"]')).toBeNull();
     expect(compiled.querySelector('[data-testid="current-computer-move"]')).toBeNull();
     expect(compiled.querySelector('[data-testid="current-target-outcome"]')).toBeNull();
@@ -341,6 +345,39 @@ describe('App', () => {
     expect(compiled.querySelector('[data-testid="current-target-outcome"]')?.textContent).toContain(
       'プレイヤーの勝ち',
     );
+    fixture.destroy();
+  }));
+
+  it('should persist highest score after reset and show it in scoreboard', fakeAsync(() => {
+    const fixture = TestBed.createComponent(App);
+    const computerService = TestBed.inject(ComputerPlayerService);
+    const gameCoreService = TestBed.inject(GameCoreService);
+    spyOn(computerService, 'getComputerMove').and.returnValues('scissors', 'rock', 'paper');
+    spyOn(gameCoreService, 'getTargetOutcome').and.returnValues('player', 'draw', 'computer');
+
+    fixture.componentInstance.startGame();
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    const moveButton = compiled.querySelector('.move-btn') as HTMLButtonElement;
+
+    moveButton.click();
+    fixture.detectChanges();
+    expect(
+      Array.from(compiled.querySelectorAll('.score-item .value')).map((el) =>
+        (el.textContent ?? '').trim(),
+      ),
+    ).toEqual(['1', '1']);
+
+    const resetButton = compiled.querySelector('.reset-btn') as HTMLButtonElement;
+    resetButton.click();
+    fixture.detectChanges();
+
+    expect(
+      Array.from(compiled.querySelectorAll('.score-item .value')).map((el) =>
+        (el.textContent ?? '').trim(),
+      ),
+    ).toEqual(['0', '1']);
     fixture.destroy();
   }));
 });

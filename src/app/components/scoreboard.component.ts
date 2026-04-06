@@ -11,10 +11,16 @@ import { MatCardModule } from '@angular/material/card';
         <span class="label">{{ passedRoundsLabel }}</span>
         <span class="value">{{ passedRounds }}</span>
       </mat-card>
+      <mat-card class="score-item" appearance="outlined">
+        <span class="label">{{ highestScoreLabel }}</span>
+        <span class="value">{{ highestScore }}</span>
+      </mat-card>
     </section>
   `,
 })
 export class ScoreboardComponent {
   @Input({ required: true }) passedRounds!: number;
+  @Input({ required: true }) highestScore!: number;
   @Input() passedRoundsLabel = 'Passed Rounds';
+  @Input() highestScoreLabel = 'Highest Score';
 }

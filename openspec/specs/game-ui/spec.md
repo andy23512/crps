@@ -47,18 +47,28 @@ The system SHALL present three localized, clearly labeled controls (one for each
 
 ### Requirement: Score board is always visible
 
-The system SHALL display the current session passed-round count at all times during gameplay, updating it after each successfully passed round, using Angular Material visual conventions.
+The system SHALL display both the current session passed-round count and the highest passed-round count at all times during gameplay, updating the current score after each successfully passed round and updating the highest score when a new maximum is achieved, using Angular Material visual conventions.
 
 #### Scenario: Passed-round count updates after a successful round
 
 - **WHEN** a round completes and the generated required target outcome is satisfied
 - **THEN** the score board SHALL reflect the incremented passed-round count immediately
 
+#### Scenario: Highest score is visible alongside current score
+
+- **WHEN** the score board is rendered
+- **THEN** it SHALL include a highest-score value in addition to the current passed-round count
+
+#### Scenario: Highest score persists after reset
+
+- **WHEN** the player resets or starts a new game
+- **THEN** the current passed-round value SHALL reset while the displayed highest score SHALL remain available
+
 ### Requirement: Player can reset the game
 
-The system SHALL provide a localized control to reset the game, clearing the scores and the last round result, and this control SHALL be rendered as an Angular Material action component. Activating reset SHALL return the app to idle state, requiring the player to press Start Game to begin a new session.
+The system SHALL provide a localized control to reset the game, clearing the current-session passed-round score and the last round result, and this control SHALL be rendered as an Angular Material action component. Activating reset SHALL return the app to idle state, requiring the player to press Start Game to begin a new session.
 
 #### Scenario: Reset clears scores and returns to idle
 
 - **WHEN** the player activates the reset/new game control
-- **THEN** all scores SHALL reset to zero, the round timer SHALL stop, and the app SHALL return to idle state showing the localized Start Game control
+- **THEN** the current passed-round score SHALL reset to zero, the round timer SHALL stop, and the app SHALL return to idle state showing the localized Start Game control

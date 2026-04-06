@@ -4,6 +4,7 @@ export type TargetOutcome = RoundResult;
 
 export interface ScoreState {
   passedRounds: number;
+  highestScore: number;
 }
 
 export interface RoundState {

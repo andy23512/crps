@@ -1,3 +1,5 @@
+## MODIFIED Requirements
+
 ### Requirement: Score is tracked per session
 
 The system SHALL maintain a cumulative count of passed rounds for the duration of the browser session. The passed-round count SHALL start at zero and increment by 1 after each completed round that satisfies the generated required target outcome, and the system SHALL update a persisted highest passed-round value whenever the current session count exceeds the stored maximum.

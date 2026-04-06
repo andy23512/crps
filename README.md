@@ -136,3 +136,10 @@ To manually trigger CI deployment:
 - Add new UI text by introducing a stable key in both `en` and `ja` dictionaries.
 - Keep English as the fallback locale for any missing key.
 - Verify localization behavior with `npm run test -- --watch=false --browsers=ChromeHeadless`.
+
+## Score Persistence
+
+- The app tracks two score values: current passed rounds and highest score.
+- Highest score is persisted in browser localStorage and survives page reloads.
+- Reset/New Game clears only the current session score and keeps highest score.
+- Highest score updates only when current passed rounds exceed the previous maximum.
