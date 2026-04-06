@@ -1,3 +1,5 @@
+## MODIFIED Requirements
+
 ### Requirement: Angular application shell initializes the game experience
 
 The system SHALL provide an Angular application shell that bootstraps successfully in a modern browser from a root-level workspace, renders the root game experience container using Angular Material layout and surface primitives, displays the primary game heading text as "Conditional RPS", and aligns the browser tab title to "Conditional RPS".
@@ -8,12 +10,3 @@ The system SHALL provide an Angular application shell that bootstraps successful
 - **THEN** Angular SHALL bootstrap and display the root game interface container
 - **AND** the root heading text SHALL be visible as "Conditional RPS"
 - **AND** the browser tab title SHALL be "Conditional RPS"
-
-### Requirement: Root shell exposes game layout regions
-
-The system SHALL expose layout regions for move controls, round result, and score display within Angular-managed templates, with consistent Angular Material spacing and visual hierarchy after root-level workspace relocation.
-
-#### Scenario: Core regions are visible
-
-- **WHEN** the app shell finishes rendering from a root-level workspace execution
-- **THEN** the UI SHALL include visible regions for controls, result output, and scoreboard

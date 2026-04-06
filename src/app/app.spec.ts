@@ -22,7 +22,8 @@ describe('App', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Rock Paper Scissors');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Conditional RPS');
+    expect(document.title).toContain('Conditional RPS');
     fixture.destroy();
   }));
 
@@ -291,7 +292,7 @@ describe('App', () => {
     languageSelect.dispatchEvent(new Event('change'));
     fixture.detectChanges();
 
-    expect(compiled.querySelector('h1')?.textContent).toContain('じゃんけん');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Conditional RPS');
     expect(compiled.querySelector('.start-btn')?.textContent).toContain('ゲーム開始');
     expect(compiled.querySelector('.score-item .label')?.textContent).toContain('クリアラウンド');
 

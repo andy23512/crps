@@ -4,7 +4,7 @@ export type UiLanguage = 'en' | 'ja';
 
 const TRANSLATIONS: Record<UiLanguage, Record<string, string>> = {
   en: {
-    'app.title': 'Rock Paper Scissors',
+    'app.title': 'Conditional RPS',
     'language.label': 'Language',
     'language.en': 'English',
     'language.ja': 'Japanese',
@@ -24,7 +24,7 @@ const TRANSLATIONS: Record<UiLanguage, Record<string, string>> = {
     'outcome.draw': 'draw',
   },
   ja: {
-    'app.title': 'じゃんけん',
+    'app.title': 'Conditional RPS',
     'language.label': '言語',
     'language.en': '英語',
     'language.ja': '日本語',

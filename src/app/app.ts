@@ -39,7 +39,9 @@ export class App implements OnInit, OnDestroy {
     private readonly scoreTrackerService: ScoreTrackerService,
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.updateDocumentTitle();
+  }
 
   ngOnDestroy(): void {
     this.clearTimer();
@@ -63,6 +65,7 @@ export class App implements OnInit, OnDestroy {
 
   setLanguage(language: UiLanguage): void {
     this.localizationService.setLanguage(language);
+    this.updateDocumentTitle();
   }
 
   onLanguageChange(event: Event): void {
@@ -161,5 +164,9 @@ export class App implements OnInit, OnDestroy {
     this.generateTargetOutcome();
     this.revealNextComputerMove();
     this.startTimer();
+  }
+
+  private updateDocumentTitle(): void {
+    document.title = this.t('app.title');
   }
 }
