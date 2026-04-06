@@ -1,0 +1,54 @@
+{
+  "name": "game-angular",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "build:github-pages": "ng build --configuration production --base-href /crps/ --output-path dist/game-angular/browser",
+    "deploy:github-pages": "gh-pages -d dist/game-angular/browser -b gh-pages -r https://github.com/andy23512/crps.git",
+    "deploy:github-pages:dry-run": "node -e \"const pkg=require('./package.json'); const s=pkg.scripts['deploy:github-pages']||''; const checks=[['gh-pages command',/\\bgh-pages\\b/.test(s)],['dist path',/dist\\/game-angular\\/browser/.test(s)],['branch target',/\\s-b\\s+gh-pages\\b/.test(s)],['repo target',/andy23512\\/crps\\.git/.test(s)]]; const failed=checks.filter(([_,ok])=>!ok); if(failed.length){console.error('Deploy script validation failed:', failed.map(([name])=>name).join(', ')); process.exit(1);} console.log('Deploy script validation passed: gh-pages branch and repo target are configured.');\"",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true,
+    "overrides": [
+      {
+        "files": "*.html",
+        "options": {
+          "parser": "angular"
+        }
+      }
+    ]
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^20.3.18",
+    "@angular/cdk": "^20.2.14",
+    "@angular/common": "^20.3.0",
+    "@angular/compiler": "^20.3.0",
+    "@angular/core": "^20.3.0",
+    "@angular/forms": "^20.3.0",
+    "@angular/material": "^20.2.14",
+    "@angular/platform-browser": "^20.3.0",
+    "@angular/router": "^20.3.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.15.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^20.3.22",
+    "@angular/cli": "^20.3.22",
+    "@angular/compiler-cli": "^20.3.0",
+    "@types/jasmine": "~5.1.0",
+    "jasmine-core": "~5.9.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "typescript": "~5.9.2"
+  }
+}

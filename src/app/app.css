@@ -1,0 +1,255 @@
+:host {
+  color-scheme: light;
+  --bg-0: #f2efe8;
+  --bg-1: #f8f6f0;
+  --ink: #1f2937;
+  --muted: #64748b;
+  --panel: #ffffff;
+  --accent: #0f766e;
+  --accent-strong: #115e59;
+  --line: #dbe4ea;
+  --win: #15803d;
+  --lose: #b91c1c;
+  --draw: #a16207;
+  display: block;
+}
+
+.shell {
+  min-height: 100vh;
+  background: radial-gradient(circle at top, var(--bg-1), var(--bg-0));
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+}
+
+.game-card {
+  width: min(560px, 100%);
+  padding: 1rem 1rem 1.25rem;
+}
+
+h1 {
+  margin: 0 0 1rem;
+  color: var(--ink);
+  font-family: 'Avenir Next', 'Trebuchet MS', sans-serif;
+  letter-spacing: 0.01em;
+  text-align: center;
+}
+
+app-scoreboard,
+app-move-controls,
+app-round-result {
+  display: block;
+  margin-top: 1rem;
+}
+
+.current-computer {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  text-align: center;
+}
+
+.current-computer .label {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.current-computer .value {
+  margin: 0.35rem 0 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.current-target {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  text-align: center;
+  background: color-mix(in srgb, #eef2ff 50%, white);
+}
+
+.current-target .label {
+  margin: 0;
+  font-size: 0.75rem;
+  color: #3730a3;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.current-target .value {
+  margin: 0.35rem 0 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #312e81;
+}
+
+.game-over {
+  margin: 0.75rem 0 0;
+  background: color-mix(in srgb, #fef2f2 75%, white);
+  color: #991b1b;
+  padding: 0.65rem 0.75rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+:host ::ng-deep .scoreboard {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.75rem;
+}
+
+:host ::ng-deep .score-item {
+  padding: 0.35rem 0.55rem;
+  text-align: center;
+}
+
+:host ::ng-deep .label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+:host ::ng-deep .value {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 1.6rem;
+  color: var(--ink);
+  font-weight: 700;
+}
+
+:host ::ng-deep .moves {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+:host ::ng-deep .move-btn {
+  font-weight: 600;
+  min-width: 110px;
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:host ::ng-deep .move-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  transform: none;
+  box-shadow: none;
+  border-color: var(--line);
+}
+
+:host ::ng-deep .move-icon {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+  flex: 0 0 auto;
+}
+
+:host ::ng-deep .move-btn:focus-visible .move-icon,
+:host ::ng-deep .move-btn:hover .move-icon {
+  opacity: 1;
+}
+
+:host ::ng-deep .move-btn:disabled .move-icon {
+  opacity: 0.9;
+}
+
+:host ::ng-deep .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+:host ::ng-deep .result-area {
+  min-height: 5.5rem;
+  padding: 0.75rem;
+  text-align: center;
+}
+
+:host ::ng-deep .result-area .moves {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+:host ::ng-deep .challenge-outcome {
+  margin: 0.35rem 0 0;
+  justify-content: center;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+:host ::ng-deep .challenge-outcome .met {
+  color: var(--win);
+}
+
+:host ::ng-deep .challenge-outcome .failed {
+  color: var(--lose);
+}
+
+:host ::ng-deep .result {
+  margin: 0.5rem 0 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  min-height: 1.4em;
+  color: var(--ink);
+}
+
+:host ::ng-deep .result.win {
+  color: var(--win);
+}
+
+:host ::ng-deep .result.lose {
+  color: var(--lose);
+}
+
+:host ::ng-deep .result.draw {
+  color: var(--draw);
+}
+
+.reset-btn {
+  width: 100%;
+  margin-top: 1rem;
+  font-weight: 700;
+}
+
+.round-timer {
+  margin-top: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.timer-label {
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.timer-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--ink);
+  min-width: 2.5ch;
+}
+
+@media (max-width: 540px) {
+  :host ::ng-deep .moves {
+    flex-wrap: wrap;
+  }
+}

@@ -1,0 +1,63 @@
+<main class="shell">
+  <mat-card class="game-card" appearance="outlined">
+    <h1>Rock Paper Scissors</h1>
+
+    <app-scoreboard [passedRounds]="score.passedRounds"></app-scoreboard>
+
+    <button
+      class="start-btn"
+      mat-flat-button
+      color="primary"
+      type="button"
+      (click)="startGame()"
+      *ngIf="!gameStarted"
+    >
+      Start Game
+    </button>
+
+    <ng-container *ngIf="gameStarted">
+      <mat-card class="current-computer" appearance="outlined" aria-live="polite">
+        <p class="label">Current Computer Move</p>
+        <p class="value" data-testid="current-computer-move">
+          {{ currentComputerMove }}
+        </p>
+      </mat-card>
+
+      <mat-card class="current-target" appearance="outlined" aria-live="polite">
+        <p class="label">Required Round Outcome</p>
+        <p class="value" data-testid="current-target-outcome">
+          {{ currentTargetOutcome }}
+        </p>
+      </mat-card>
+
+      <mat-card
+        class="game-over"
+        appearance="outlined"
+        *ngIf="isGameOver"
+        data-testid="game-over-status"
+      >
+        Game Over: required outcome was not met. Press New Game to try again.
+      </mat-card>
+
+      <mat-card
+        class="round-timer"
+        appearance="outlined"
+        aria-live="polite"
+        *ngIf="!isGameOver"
+        data-testid="round-timer"
+      >
+        <span class="timer-label">Time remaining</span>
+        <span class="timer-value" data-testid="timer-value">{{ timeRemaining }}s</span>
+      </mat-card>
+
+      <app-move-controls
+        [disabled]="isGameOver"
+        (moveSelected)="onMoveSelected($event)"
+      ></app-move-controls>
+
+      <button class="reset-btn" mat-flat-button color="primary" type="button" (click)="resetGame()">
+        New Game
+      </button>
+    </ng-container>
+  </mat-card>
+</main>
