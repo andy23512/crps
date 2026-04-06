@@ -35,6 +35,26 @@ h1 {
   text-align: center;
 }
 
+.language-selector {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.language-selector label {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.language-selector select {
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  background: var(--panel);
+  color: var(--ink);
+  padding: 0.25rem 0.5rem;
+}
+
 app-scoreboard,
 app-move-controls,
 app-round-result {

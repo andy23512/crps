@@ -37,7 +37,7 @@ describe('App', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('[data-testid="current-computer-move"]')?.textContent).toContain(
-      'paper',
+      'Paper',
     );
     expect(compiled.querySelector('[data-testid="current-target-outcome"]')?.textContent).toContain(
       'draw',
@@ -110,7 +110,7 @@ describe('App', () => {
     const scoreValue = (compiled.querySelector('.score-item .value')?.textContent ?? '').trim();
 
     expect(scoreValue).toBe('1');
-    expect(revealed).toContain('rock');
+    expect(revealed).toContain('Rock');
     expect(target).toContain('draw');
     expect(compiled.querySelector('[data-testid="game-over-status"]')).toBeNull();
     fixture.destroy();
@@ -272,6 +272,64 @@ describe('App', () => {
     expect(compiled.querySelector('[data-testid="current-computer-move"]')).not.toBeNull();
     expect(compiled.querySelector('[data-testid="round-timer"]')).not.toBeNull();
     expect(fixture.componentInstance.timeRemaining).toBe(10);
+    fixture.destroy();
+  }));
+
+  it('should render Japanese UI text when language is switched to Japanese', fakeAsync(() => {
+    const fixture = TestBed.createComponent(App);
+    const computerService = TestBed.inject(ComputerPlayerService);
+    const gameCoreService = TestBed.inject(GameCoreService);
+    spyOn(computerService, 'getComputerMove').and.returnValue('paper');
+    spyOn(gameCoreService, 'getTargetOutcome').and.returnValue('draw');
+
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const languageSelect = compiled.querySelector('[data-testid="language-select"]') as HTMLSelectElement;
+    languageSelect.value = 'ja';
+    languageSelect.dispatchEvent(new Event('change'));
+    fixture.detectChanges();
+
+    expect(compiled.querySelector('h1')?.textContent).toContain('じゃんけん');
+    expect(compiled.querySelector('.start-btn')?.textContent).toContain('ゲーム開始');
+    expect(compiled.querySelector('.score-item .label')?.textContent).toContain('クリアラウンド');
+
+    fixture.componentInstance.startGame();
+    fixture.detectChanges();
+
+    expect(compiled.querySelector('[data-testid="current-computer-move"]')?.textContent).toContain('パー');
+    expect(compiled.querySelector('[data-testid="current-target-outcome"]')?.textContent).toContain('引き分け');
+    const labels = Array.from(compiled.querySelectorAll('.move-btn')).map((btn) =>
+      btn.getAttribute('aria-label'),
+    );
+    expect(labels).toEqual(['グー', 'パー', 'チョキ']);
+    fixture.destroy();
+  }));
+
+  it('should preserve game state when switching language during active gameplay', fakeAsync(() => {
+    const fixture = TestBed.createComponent(App);
+    const computerService = TestBed.inject(ComputerPlayerService);
+    const gameCoreService = TestBed.inject(GameCoreService);
+    spyOn(computerService, 'getComputerMove').and.returnValue('rock');
+    spyOn(gameCoreService, 'getTargetOutcome').and.returnValue('player');
+
+    fixture.componentInstance.startGame();
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(fixture.componentInstance.gameStarted).toBeTrue();
+    expect(compiled.querySelector('[data-testid="round-timer"]')).not.toBeNull();
+
+    const languageSelect = compiled.querySelector('[data-testid="language-select"]') as HTMLSelectElement;
+    languageSelect.value = 'ja';
+    languageSelect.dispatchEvent(new Event('change'));
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.gameStarted).toBeTrue();
+    expect(compiled.querySelector('[data-testid="round-timer"]')).not.toBeNull();
+    expect(compiled.querySelector('[data-testid="current-computer-move"]')?.textContent).toContain('グー');
+    expect(compiled.querySelector('[data-testid="current-target-outcome"]')?.textContent).toContain(
+      'プレイヤーの勝ち',
+    );
     fixture.destroy();
   }));
 });

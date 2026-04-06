@@ -7,6 +7,7 @@ import { ScoreboardComponent } from './components/scoreboard.component';
 import { Move, TargetOutcome } from './models/game.types';
 import { ComputerPlayerService } from './services/computer-player.service';
 import { GameCoreService } from './services/game-core.service';
+import { LocalizationService, UiLanguage } from './services/localization.service';
 import { ScoreTrackerService } from './services/score-tracker.service';
 
 @Component({
@@ -34,6 +35,7 @@ export class App implements OnInit, OnDestroy {
   constructor(
     private readonly gameCoreService: GameCoreService,
     private readonly computerPlayerService: ComputerPlayerService,
+    private readonly localizationService: LocalizationService,
     private readonly scoreTrackerService: ScoreTrackerService,
   ) {}
 
@@ -47,8 +49,42 @@ export class App implements OnInit, OnDestroy {
     return this.scoreTrackerService.score();
   }
 
+  get currentLanguage(): UiLanguage {
+    return this.localizationService.language();
+  }
+
   get isGameOver() {
     return this.scoreTrackerService.isGameOver();
+  }
+
+  t(key: string): string {
+    return this.localizationService.t(key);
+  }
+
+  setLanguage(language: UiLanguage): void {
+    this.localizationService.setLanguage(language);
+  }
+
+  onLanguageChange(event: Event): void {
+    const target = event.target as HTMLSelectElement | null;
+    const language = target?.value;
+    if (language === 'en' || language === 'ja') {
+      this.setLanguage(language);
+    }
+  }
+
+  get localizedMove(): string | null {
+    if (!this.currentComputerMove) {
+      return null;
+    }
+    return this.t(`move.${this.currentComputerMove}`);
+  }
+
+  get localizedTargetOutcome(): string | null {
+    if (!this.currentTargetOutcome) {
+      return null;
+    }
+    return this.t(`outcome.${this.currentTargetOutcome}`);
   }
 
   onMoveSelected(playerMove: Move): void {

@@ -1,8 +1,24 @@
 <main class="shell">
   <mat-card class="game-card" appearance="outlined">
-    <h1>Rock Paper Scissors</h1>
+    <h1>{{ t('app.title') }}</h1>
 
-    <app-scoreboard [passedRounds]="score.passedRounds"></app-scoreboard>
+    <div class="language-selector">
+      <label for="language-select">{{ t('language.label') }}</label>
+      <select
+        id="language-select"
+        [value]="currentLanguage"
+        (change)="onLanguageChange($event)"
+        data-testid="language-select"
+      >
+        <option value="en">{{ t('language.en') }}</option>
+        <option value="ja">{{ t('language.ja') }}</option>
+      </select>
+    </div>
+
+    <app-scoreboard
+      [passedRounds]="score.passedRounds"
+      [passedRoundsLabel]="t('score.passedRounds')"
+    ></app-scoreboard>
 
     <button
       class="start-btn"
@@ -12,21 +28,21 @@
       (click)="startGame()"
       *ngIf="!gameStarted"
     >
-      Start Game
+      {{ t('button.startGame') }}
     </button>
 
     <ng-container *ngIf="gameStarted">
       <mat-card class="current-computer" appearance="outlined" aria-live="polite">
-        <p class="label">Current Computer Move</p>
+        <p class="label">{{ t('label.currentComputerMove') }}</p>
         <p class="value" data-testid="current-computer-move">
-          {{ currentComputerMove }}
+          {{ localizedMove }}
         </p>
       </mat-card>
 
       <mat-card class="current-target" appearance="outlined" aria-live="polite">
-        <p class="label">Required Round Outcome</p>
+        <p class="label">{{ t('label.requiredRoundOutcome') }}</p>
         <p class="value" data-testid="current-target-outcome">
-          {{ currentTargetOutcome }}
+          {{ localizedTargetOutcome }}
         </p>
       </mat-card>
 
@@ -36,7 +52,7 @@
         *ngIf="isGameOver"
         data-testid="game-over-status"
       >
-        Game Over: required outcome was not met. Press New Game to try again.
+        {{ t('status.gameOver') }}
       </mat-card>
 
       <mat-card
@@ -46,17 +62,21 @@
         *ngIf="!isGameOver"
         data-testid="round-timer"
       >
-        <span class="timer-label">Time remaining</span>
+        <span class="timer-label">{{ t('label.timeRemaining') }}</span>
         <span class="timer-value" data-testid="timer-value">{{ timeRemaining }}s</span>
       </mat-card>
 
       <app-move-controls
         [disabled]="isGameOver"
+        [movesAriaLabel]="t('label.moveSelection')"
+        [rockLabel]="t('move.rock')"
+        [paperLabel]="t('move.paper')"
+        [scissorsLabel]="t('move.scissors')"
         (moveSelected)="onMoveSelected($event)"
       ></app-move-controls>
 
       <button class="reset-btn" mat-flat-button color="primary" type="button" (click)="resetGame()">
-        New Game
+        {{ t('button.newGame') }}
       </button>
     </ng-container>
   </mat-card>

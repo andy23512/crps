@@ -7,13 +7,13 @@ import { Move } from '../models/game.types';
   standalone: true,
   imports: [MatButtonModule],
   template: `
-    <section class="moves" aria-label="Move selection">
+    <section class="moves" [attr.aria-label]="movesAriaLabel">
       <button
         class="move-btn"
         mat-stroked-button
         color="primary"
         type="button"
-        aria-label="Rock"
+        [attr.aria-label]="rockLabel"
         [disabled]="disabled"
         (click)="onSelect('rock')"
       >
@@ -29,14 +29,14 @@ import { Move } from '../models/game.types';
             stroke-linecap="round"
           />
         </svg>
-        <span class="sr-only">Rock</span>
+        <span class="sr-only">{{ rockLabel }}</span>
       </button>
       <button
         class="move-btn"
         mat-stroked-button
         color="accent"
         type="button"
-        aria-label="Paper"
+        [attr.aria-label]="paperLabel"
         [disabled]="disabled"
         (click)="onSelect('paper')"
       >
@@ -52,14 +52,14 @@ import { Move } from '../models/game.types';
             stroke-linecap="round"
           />
         </svg>
-        <span class="sr-only">Paper</span>
+        <span class="sr-only">{{ paperLabel }}</span>
       </button>
       <button
         class="move-btn"
         mat-stroked-button
         color="warn"
         type="button"
-        aria-label="Scissors"
+        [attr.aria-label]="scissorsLabel"
         [disabled]="disabled"
         (click)="onSelect('scissors')"
       >
@@ -75,13 +75,17 @@ import { Move } from '../models/game.types';
             stroke-linecap="round"
           />
         </svg>
-        <span class="sr-only">Scissors</span>
+        <span class="sr-only">{{ scissorsLabel }}</span>
       </button>
     </section>
   `,
 })
 export class MoveControlsComponent {
   @Input() disabled = false;
+  @Input() movesAriaLabel = 'Move selection';
+  @Input() rockLabel = 'Rock';
+  @Input() paperLabel = 'Paper';
+  @Input() scissorsLabel = 'Scissors';
   @Output() moveSelected = new EventEmitter<Move>();
 
   onSelect(move: Move): void {

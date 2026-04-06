@@ -8,7 +8,7 @@ import { MatCardModule } from '@angular/material/card';
   template: `
     <section class="scoreboard" aria-label="Score board">
       <mat-card class="score-item" appearance="outlined">
-        <span class="label">Passed Rounds</span>
+        <span class="label">{{ passedRoundsLabel }}</span>
         <span class="value">{{ passedRounds }}</span>
       </mat-card>
     </section>
@@ -16,4 +16,5 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class ScoreboardComponent {
   @Input({ required: true }) passedRounds!: number;
+  @Input() passedRoundsLabel = 'Passed Rounds';
 }

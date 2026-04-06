@@ -129,3 +129,10 @@ To manually trigger CI deployment:
    - The `Deploy GitHub Pages` workflow run is successful.
    - The `deploy` job reports a Pages URL in run output.
    - The deployed URL serves the latest build at `https://andy23512.github.io/crps`.
+
+## Localization Maintenance
+
+- UI localization keys and dictionaries are maintained in `src/app/services/localization.service.ts`.
+- Add new UI text by introducing a stable key in both `en` and `ja` dictionaries.
+- Keep English as the fallback locale for any missing key.
+- Verify localization behavior with `npm run test -- --watch=false --browsers=ChromeHeadless`.
