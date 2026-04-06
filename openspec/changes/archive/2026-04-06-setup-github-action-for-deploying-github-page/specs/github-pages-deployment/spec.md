@@ -1,3 +1,5 @@
+## MODIFIED Requirements
+
 ### Requirement: GitHub Pages deployment workflow is defined
 
 The system SHALL define repeatable workflows for publishing the Angular app to GitHub Pages at `https://andy23512.github.io/crps`, including both manual contributor commands and a GitHub Actions CI deployment path.

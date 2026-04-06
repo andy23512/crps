@@ -102,6 +102,21 @@ npm run deploy:github-pages
 npm run deploy:github-pages:dry-run
 ```
 
+### GitHub Actions Deployment Workflow
+
+- Workflow file: `.github/workflows/deploy-github-pages.yml`
+- Triggers:
+  - Push to `main`
+  - Manual dispatch from GitHub Actions UI (`workflow_dispatch`)
+- CI build command: `npm run build:github-pages`
+- Artifact upload path: `dist/game-angular/browser`
+
+To manually trigger CI deployment:
+
+1. Open the repository Actions tab.
+2. Select `Deploy GitHub Pages` workflow.
+3. Click `Run workflow`.
+
 ### Verification Checklist
 
 1. Confirm build output exists in `dist/game-angular/browser/`.
@@ -110,3 +125,7 @@ npm run deploy:github-pages:dry-run
    - The page loads without 404 errors.
    - JS/CSS assets load successfully.
    - Game controls and scoreboard render correctly.
+4. For CI deployments, verify:
+   - The `Deploy GitHub Pages` workflow run is successful.
+   - The `deploy` job reports a Pages URL in run output.
+   - The deployed URL serves the latest build at `https://andy23512.github.io/crps`.
