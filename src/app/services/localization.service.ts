@@ -35,7 +35,8 @@ const TRANSLATIONS: Record<UiLanguage, Record<string, string>> = {
     'label.requiredRoundOutcome': '必要なラウンド結果',
     'label.moveSelection': '手の選択',
     'label.timeRemaining': '残り時間',
-    'status.gameOver': 'ゲームオーバー: 必要な結果を満たせませんでした。新しいゲームでもう一度試してください。',
+    'status.gameOver':
+      'ゲームオーバー: 必要な結果を満たせませんでした。新しいゲームでもう一度試してください。',
     'move.rock': 'グー',
     'move.paper': 'パー',
     'move.scissors': 'チョキ',

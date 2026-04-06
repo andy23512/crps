@@ -284,7 +284,9 @@ describe('App', () => {
 
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    const languageSelect = compiled.querySelector('[data-testid="language-select"]') as HTMLSelectElement;
+    const languageSelect = compiled.querySelector(
+      '[data-testid="language-select"]',
+    ) as HTMLSelectElement;
     languageSelect.value = 'ja';
     languageSelect.dispatchEvent(new Event('change'));
     fixture.detectChanges();
@@ -296,8 +298,12 @@ describe('App', () => {
     fixture.componentInstance.startGame();
     fixture.detectChanges();
 
-    expect(compiled.querySelector('[data-testid="current-computer-move"]')?.textContent).toContain('パー');
-    expect(compiled.querySelector('[data-testid="current-target-outcome"]')?.textContent).toContain('引き分け');
+    expect(compiled.querySelector('[data-testid="current-computer-move"]')?.textContent).toContain(
+      'パー',
+    );
+    expect(compiled.querySelector('[data-testid="current-target-outcome"]')?.textContent).toContain(
+      '引き分け',
+    );
     const labels = Array.from(compiled.querySelectorAll('.move-btn')).map((btn) =>
       btn.getAttribute('aria-label'),
     );
@@ -319,14 +325,18 @@ describe('App', () => {
     expect(fixture.componentInstance.gameStarted).toBeTrue();
     expect(compiled.querySelector('[data-testid="round-timer"]')).not.toBeNull();
 
-    const languageSelect = compiled.querySelector('[data-testid="language-select"]') as HTMLSelectElement;
+    const languageSelect = compiled.querySelector(
+      '[data-testid="language-select"]',
+    ) as HTMLSelectElement;
     languageSelect.value = 'ja';
     languageSelect.dispatchEvent(new Event('change'));
     fixture.detectChanges();
 
     expect(fixture.componentInstance.gameStarted).toBeTrue();
     expect(compiled.querySelector('[data-testid="round-timer"]')).not.toBeNull();
-    expect(compiled.querySelector('[data-testid="current-computer-move"]')?.textContent).toContain('グー');
+    expect(compiled.querySelector('[data-testid="current-computer-move"]')?.textContent).toContain(
+      'グー',
+    );
     expect(compiled.querySelector('[data-testid="current-target-outcome"]')?.textContent).toContain(
       'プレイヤーの勝ち',
     );
