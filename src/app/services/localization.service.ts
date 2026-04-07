@@ -25,7 +25,7 @@ const TRANSLATIONS: Record<UiLanguage, Record<string, string>> = {
     'outcome.draw': 'draw',
   },
   ja: {
-    'app.title': 'Conditional RPS',
+    'app.title': '条件付きじゃんけん',
     'language.label': '言語',
     'language.en': '英語',
     'language.ja': '日本語',

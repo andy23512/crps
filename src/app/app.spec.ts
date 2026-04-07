@@ -296,7 +296,8 @@ describe('App', () => {
     languageSelect.dispatchEvent(new Event('change'));
     fixture.detectChanges();
 
-    expect(compiled.querySelector('h1')?.textContent).toContain('Conditional RPS');
+    expect(compiled.querySelector('h1')?.textContent).toContain('条件付きじゃんけん');
+    expect(document.title).toContain('条件付きじゃんけん');
     expect(compiled.querySelector('.start-btn')?.textContent).toContain('ゲーム開始');
     expect(compiled.querySelector('.score-item .label')?.textContent).toContain('クリアラウンド');
 
@@ -345,6 +346,7 @@ describe('App', () => {
     expect(compiled.querySelector('[data-testid="current-target-outcome"]')?.textContent).toContain(
       'プレイヤーの勝ち',
     );
+    expect(document.title).toContain('条件付きじゃんけん');
     fixture.destroy();
   }));
 
